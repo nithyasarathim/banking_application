@@ -1,0 +1,56 @@
+CREATE DATABASE BANK_APPLICATION;
+
+USE BANK_APPLICATION;
+
+CREATE TABLE BANK(
+bank_id INT PRIMARY KEY auto_increment,
+bank_name VARCHAR(100) NOT NULL,
+bank_branch VARCHAR(100) NOT NULL
+);
+
+INSERT INTO BANK(bank_name, bank_branch) VALUES ('SBI','Main_branch');
+
+INSERT INTO BANK(bank_name, bank_branch) VALUES ('DBS','Main_branch');
+
+CREATE TABLE ACCOUNT(
+account_id INT PRIMARY KEY UNIQUE auto_increment,
+customer_id INT NOT NULL,
+bank_id INT,
+account_type VARCHAR(50) NOT NULL,
+balance DECIMAL(15,2) NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY(bank_id) REFERENCES BANK(bank_id)
+);
+
+CREATE TABLE SAVINGSACCOUNT(
+account_id INT PRIMARY KEY,
+interest_rate DECIMAL(5,2) NOT NULL,
+FOREIGN KEY(account_id) REFERENCES ACCOUNT(account_id)
+);
+
+CREATE TABLE CURRENTACCOUNT(
+account_id INT PRIMARY KEY,
+overdraft_limit DECIMAL(5,2) NOT NULL,
+FOREIGN KEY(account_id) REFERENCES ACCOUNT(account_id)
+);
+
+CREATE TABLE TRANSACTION (
+transaction_id INT PRIMARY KEY auto_increment,
+account_id INT NOT NULL,
+transaction_type VARCHAR(50) NOT NULL,
+amount DECIMAL(15,2) NOT NULL,
+transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY(account_id) REFERENCES ACCOUNT(account_id)
+);
+
+CREATE TABLE DEPOSITTRANSACTION(
+transaction_id INT PRIMARY KEY,
+deposit_method VARCHAR(50) NOT NULL,
+FOREIGN KEY (transaction_id) REFERENCES TRANSACTION(transaction_id)
+);
+
+CREATE TABLE WITHDRAWTRANSACTION(
+transaction_id INT PRIMARY KEY,
+withdraw_method VARCHAR(50) NOT NULL,
+FOREIGN KEY (transaction_id) REFERENCES TRANSACTION(transaction_id)
+);
