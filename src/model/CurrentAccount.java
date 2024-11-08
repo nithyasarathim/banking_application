@@ -4,8 +4,8 @@ public class CurrentAccount extends Account{
 
 	private double overdraft_limit;
 	
-	public CurrentAccount(int account_id, int customer_id, Bank bank, String account_type, double balance,double overdraft_limit) {
-		super(account_id, customer_id, bank, account_type, balance);
+	public CurrentAccount(int account_id, int customer_id, String accountType,Bank bank, double balance,double overdraft_limit) {
+		super(account_id, customer_id, bank, accountType, balance);
 		this.overdraft_limit=overdraft_limit;
 	}
 

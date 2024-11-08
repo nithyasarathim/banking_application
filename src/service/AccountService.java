@@ -3,7 +3,7 @@ package service;
 import java.sql.SQLException;
 
 import dao.AccountDAO;
-import dao.AccountDAOImpl;
+import dao.AccountDAOimpl;
 import exception.InvalidAccountTypeException;
 import model.Account;
 
@@ -11,7 +11,7 @@ public class AccountService {
 	private final AccountDAO accountDAO ;
 	public AccountService()
 	{
-		this.accountDAO = new AccountDAOImpl();
+		this.accountDAO = new AccountDAOimpl();
 	}
 	public void createAccount(Account account) throws SQLException, InvalidAccountTypeException{
 		accountDAO.createAccount(account);

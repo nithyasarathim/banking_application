@@ -8,7 +8,7 @@ import exception.InvalidAccountTypeException;
 import model.Account;
 import utility.DBconnection;
 
-public class AccountDAOImpl implements AccountDAO {
+public class AccountDAOimpl implements AccountDAO {
 
 	@Override
 	public void createAccount(Account account) throws SQLException, InvalidAccountTypeException {
@@ -27,7 +27,7 @@ public class AccountDAOImpl implements AccountDAO {
 				{
 					throw new InvalidAccountTypeException ("Account Type not recognized");
 				}
-				}
+		}
 				
 				
 				
