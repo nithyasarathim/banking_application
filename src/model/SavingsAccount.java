@@ -16,6 +16,11 @@ public class SavingsAccount extends Account{
 	public void setInterest_rate(double interest_rate) {
 		this.interest_rate = interest_rate;
 	}
+
+	@Override
+	public String getAccountDetails() {
+		return "This is a Savings Account with interest rate :"+this.interest_rate;
+	}
 	
 
 	

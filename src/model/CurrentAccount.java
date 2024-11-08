@@ -17,7 +17,13 @@ public class CurrentAccount extends Account{
 		this.overdraft_limit = overdraft_limit;
 	}
 
+	@Override
+	public String getAccountDetails() {
+		return "This is current account with overdraft limit :"+this.overdraft_limit;
+	}
+
 	
+
 	
 	
 

@@ -56,5 +56,5 @@ public abstract class Account {
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
-	
+	abstract public String getAccountDetails();
 }
