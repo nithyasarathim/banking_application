@@ -37,8 +37,12 @@ public class BankController {
 			{
 			case 1:
 			{
-					createAccount();
-					break;
+				createAccount();
+				break;
+			}
+			case 2:
+			{
+				updateAccount();
 			}
 			}
 		}
@@ -71,18 +75,18 @@ public class BankController {
 			accountService.createAccount(new CurrentAccount(0,cusID,accountType,bank,bal,overdraftlimit));
 		}
 		else {
-			System.out.println("---------< INVALID ACCOUNT TYPE >---------");
+			System.out.println("-------< INVALID ACCOUNT TYPE >-------");
 		}
-		
-		
-		
 	}
+	
+	public void updateAccount()
 
 	public void displayMenu() {
 		System.out.println("--------------------------------------------");
 		System.out.println("------------BANKING APPLICATION-------------");
 		System.out.println("--------------------------------------------");
 		System.out.println("---- 1-    CREATE ACCOUNT               ----");
+		System.out.println("---- 2-    UPDATE ACCOUNT               ----");
 		System.out.println("---- 0-    EXIT                         ----");
 		System.out.println("--------------------------------------------");
 		System.out.println("--------<< 	 ENTER YOUR CHOICE	 >>---------");
