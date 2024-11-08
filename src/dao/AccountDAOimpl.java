@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import exception.BankingException;
+import exception.DeleteAccountException;
 import exception.InvalidAccountTypeException;
 import exception.UpdateFailureException;
 import model.Account;
@@ -47,9 +49,24 @@ public class AccountDAOimpl implements AccountDAO {
 				throw new UpdateFailureException("Update Failure");
 			}
 		}
-		
-		
 	}
+
+	@Override
+	public void deleteAccount(int cusID) throws SQLException, DeleteAccountException{
+		
+		String sql="DELETE FROM ACCOUNT WHERE customer_id=?";
+		
+		try(Connection con=DBconnection.getConnection(); PreparedStatement ps=con.prepareStatement(sql)) {
+			
+			ps.setInt(1, cusID);
+			
+			int result =ps.executeUpdate();
+			if(result == 0) {
+				throw new DeleteAccountException("No user found with that ID");
+			}
+		}
+	}
+	
 	
 	
 

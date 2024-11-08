@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.sql.SQLException;
 
 import exception.BankingException;
+import exception.DeleteAccountException;
 import exception.InvalidAccountTypeException;
 import exception.UpdateFailureException;
 import model.Bank;
@@ -28,7 +29,7 @@ public class BankController {
 	}
 	
 	boolean running =true;
-	public void start() throws NumberFormatException, IOException, SQLException, InvalidAccountTypeException, BankingException, UpdateFailureException {
+	public void start() throws NumberFormatException, IOException, SQLException, InvalidAccountTypeException, BankingException, UpdateFailureException, DeleteAccountException {
 		while(running)
 		{
 			displayMenu();
@@ -44,6 +45,12 @@ public class BankController {
 			case 2:
 			{
 				updateAccount();
+				break;
+			}
+			case 3:
+			{
+				deleteAccount();
+				break;
 			}
 			}
 		}
@@ -107,6 +114,13 @@ public class BankController {
 		}
 		
 	}
+	
+	private void deleteAccount() throws NumberFormatException, IOException, SQLException, DeleteAccountException {
+		System.out.println("\n");
+		System.out.println("ENTER CUSTOMER ID TO DELETE 			:");
+		int cusID = Integer.parseInt(br.readLine());
+		accountService.deleteAccount(cusID);
+	}
 
 	public void displayMenu() {
 		System.out.println("|--------------------------------------------|");
@@ -114,6 +128,8 @@ public class BankController {
 		System.out.println("|--------------------------------------------|");
 		System.out.println("|---- 1-       CREATE ACCOUNT            ----|");
 		System.out.println("|---- 2-       UPDATE ACCOUNT            ----|");
+		System.out.println("|---- 3- 	   DELETE ACCOUNT			 ----|");
+		System.out.println("|---- 4- 	   VIEW ACCOUNT DETAILS      ----|");
 		System.out.println("|---- 0-       EXIT                      ----|");
 		System.out.println("|--------------------------------------------|");
 		System.out.println("|-------<< 	  ENTER YOUR CHOICE    >>--------|");

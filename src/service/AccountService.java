@@ -4,6 +4,8 @@ import java.sql.SQLException;
 
 import dao.AccountDAO;
 import dao.AccountDAOimpl;
+import exception.BankingException;
+import exception.DeleteAccountException;
 import exception.InvalidAccountTypeException;
 import exception.UpdateFailureException;
 import model.Account;
@@ -22,6 +24,10 @@ public class AccountService {
 	
 	public void updateAccount(Account account) throws SQLException, UpdateFailureException {
 		accountDAO.updateAccount(account);
+	}
+	
+	public void deleteAccount(int cusID) throws SQLException,DeleteAccountException {
+		accountDAO.deleteAccount(cusID);
 	}
 	
 }
