@@ -49,6 +49,18 @@ public class TransactionService {
 		
 	}
 	
+	public Future<?> transfer(int from_id, int to_id, double amount){
+		return executorService.submit(() -> {
+			try {
+				transactionDAO.transfer(from_id, to_id, amount);
+				TransactionHistoryUtil.saveTransaction("TRANSFER",from_id, to_id,amount);
+			}
+			catch(SQLException | TransactionFailureException |IOException e ) {
+				System.err.println("Error during deposit :"+e.getMessage());
+			} 
+		});
+	}
+	
 	public void shutDownExecutorService() {
 		executorService.shutdown();
 	}

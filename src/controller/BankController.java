@@ -64,6 +64,9 @@ public class BankController {
 			case 6:
 				withdraw();
 				break;
+			case 7:
+				transfer();
+				break;
 			default:
 				System.out.println("Invalid choice, please try again!");
 			}
@@ -182,7 +185,22 @@ public class BankController {
 		future.get();
 	}
 	
-
+	private void transfer() throws NumberFormatException, IOException, InterruptedException, ExecutionException {
+		System.out.println("\n------------------------------------");
+		System.out.println("TRANSFER");
+		System.out.println("------------------------------------");
+		
+		System.out.println("Enter the account ID to transfer from :");
+		int from_id = Integer.parseInt(br.readLine());
+		System.out.println("Enter the account ID to transfer to   :");
+		int to_id = Integer.parseInt(br.readLine());
+		System.out.println("Enter the amount :");
+		double amount = Double.parseDouble(br.readLine());
+		
+		Future<?> future = transactionService.transfer(from_id,to_id, amount);
+		future.get();
+	}
+	
 	public void displayMenu() {
 		System.out.println("\n--------------------------------------------");
 		System.out.println("|---------- BANKING APPLICATION ----------|");
@@ -193,6 +211,7 @@ public class BankController {
 		System.out.println("| 4. VIEW ACCOUNT DETAILS                 |");
 		System.out.println("| 5. DEPOSIT                              |");
 		System.out.println("| 6. WITHDRAW                             |");
+		System.out.println("| 7. TRANSFER                             |");
 		System.out.println("| 0. EXIT                                 |");
 		System.out.println("--------------------------------------------");
 		System.out.print("Enter your choice: ");

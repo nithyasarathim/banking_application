@@ -29,6 +29,21 @@ public class TransactionHistoryUtil {
 		}
 	}
 	
+	public static void saveTransaction(String transactionType, int from_id, int to_id, double amount) throws IOException {
+	    String timestamp = dateFormat.format(new Date());
+	    String record = String.format(" %s | %s | From Account ID : %d | To Account ID : %d | Amount : %.2f",timestamp, transactionType, from_id, to_id, amount);
+	    
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
+	        writer.write(record);
+	        writer.newLine();
+	    } 
+	    catch (IOException e) 
+	    {
+	        System.err.println("Error writing to transaction history file ...");
+	    }
+	}
+
+	
 	public static List<String> retrieveTransactionHistory() {
 		List<String> history = new ArrayList<String>();
 		try(BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH)))

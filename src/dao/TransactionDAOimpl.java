@@ -46,9 +46,19 @@ public class TransactionDAOimpl implements TransactionDAO {
 	}
 
 	@Override
-	public  synchronized void transfer(int fromAccount, int toAccount, double amount) {
-		// TODO Auto-generated method stub
-
+	public  synchronized void transfer(int fromAccount, int toAccount, double amount) throws SQLException, TransactionFailureException {
+		try(Connection con=DBconnection.getConnection())
+		{
+			CallableStatement st=con.prepareCall("{CALL TRANSFER(?,?,?)}");
+			st.setInt(1, fromAccount);
+			st.setInt(2, toAccount);
+			st.setDouble(3, amount);
+			st.execute();
+		}
+		catch(SQLException e)
+		{
+			throw new TransactionFailureException("Tranfer failed :"+e.getMessage());
+		}
 	}
 
 }
