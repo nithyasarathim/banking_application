@@ -17,7 +17,7 @@ public class TransactionDAOimpl implements TransactionDAO {
 		}
 		try(Connection con=DBconnection.getConnection())
 		{
-			CallableStatement st=con.prepareCall("{CALL DEPOSIT(?,?)");
+			CallableStatement st=con.prepareCall("{CALL DEPOSIT(?,?)}");
 			st.setInt(1, accountID);
 			st.setDouble(2, amount);
 			st.execute();
@@ -30,8 +30,18 @@ public class TransactionDAOimpl implements TransactionDAO {
 	}
 
 	@Override
-	public synchronized void withdraw(int accountID, double amount) {
-		// TODO Auto-generated method stub
+	public synchronized void withdraw(int accountID, double amount) throws SQLException, TransactionFailureException{
+		try(Connection con=DBconnection.getConnection())
+		{
+			CallableStatement st=con.prepareCall("{CALL WITHDRAW(?,?)}");
+			st.setInt(1, accountID);
+			st.setDouble(2,amount);
+			st.execute();
+		}
+		catch(SQLException e)
+		{
+			throw new TransactionFailureException("Withdraw Failed :"+e.getMessage());
+		}
 
 	}
 

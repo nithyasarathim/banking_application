@@ -20,6 +20,7 @@ public class TransactionService {
 		this.transactionDAO=new TransactionDAOimpl();
 		this.executorService = Executors.newFixedThreadPool(5);
 	}
+	
 	public Future<?> deposit (int accountId, double amount)
 	{
 		return executorService.submit(() -> {
@@ -32,6 +33,24 @@ public class TransactionService {
 			} 
 		});
 		
+	}
+	
+	public Future<?> withdraw (int accountId, double amount) throws InvalidTransactionAmountException, SQLException, TransactionFailureException
+	{
+		return executorService.submit(() -> {
+			try {
+				transactionDAO.withdraw(accountId,amount);
+				TransactionHistoryUtil.saveTransaction("WITHDRAW", accountId, amount);
+			}
+			catch(SQLException | TransactionFailureException |IOException e) {
+				System.err.println("Error during deposit :"+e.getMessage());
+			} 
+		});
+		
+	}
+	
+	public void shutDownExecutorService() {
+		executorService.shutdown();
 	}
 }
 
