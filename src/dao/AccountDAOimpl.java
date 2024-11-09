@@ -2,7 +2,9 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import exception.BankingException;
 import exception.DeleteAccountException;
@@ -48,25 +50,52 @@ public class AccountDAOimpl implements AccountDAO {
 			if(result == 0) {
 				throw new UpdateFailureException("Update Failure");
 			}
+			else
+			{
+				System.out.println("\nUPDATION SUCCESS !\n");
+			}
 		}
 	}
 
 	@Override
-	public void deleteAccount(int cusID) throws SQLException, DeleteAccountException{
+	public void deleteAccount(int accID) throws SQLException, DeleteAccountException{
 		
-		String sql="DELETE FROM ACCOUNT WHERE customer_id=?";
+		String sql="DELETE FROM ACCOUNT WHERE account_id=?";
 		
 		try(Connection con=DBconnection.getConnection(); PreparedStatement ps=con.prepareStatement(sql)) {
 			
-			ps.setInt(1, cusID);
+			ps.setInt(1, accID);
 			
 			int result =ps.executeUpdate();
 			if(result == 0) {
-				throw new DeleteAccountException("No user found with that ID");
+				throw new DeleteAccountException("No account found with that ID");
+			}
+			else
+			{
+				System.out.println("\n DELETION SUCCESS \n");
 			}
 		}
 	}
-	
+
+	@Override
+	public void viewAccount(int accID) throws SQLException {
+	    String sql = "SELECT * FROM ACCOUNT WHERE account_id = ?";
+	    try (Connection con = DBconnection.getConnection(); 
+	        PreparedStatement st = con.prepareStatement(sql)) {
+	        st.setInt(1, accID);
+	        ResultSet rs = st.executeQuery(); 
+	        if (rs.next()) {
+	            System.out.println("Account ID    : " + rs.getInt("account_id"));
+	            System.out.println("Customer ID   : " + rs.getInt("customer_id"));
+	            System.out.println("Bank ID       : " + rs.getInt("bank_id"));
+	            System.out.println("Account Type  : " + rs.getString("account_type"));
+	            System.out.println("Balance       : " + rs.getDouble("balance"));
+	        } else {
+	            System.out.println("No account found with ID: " + accID);
+	        }
+	    }
+	}
+
 	
 	
 

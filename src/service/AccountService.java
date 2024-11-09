@@ -26,8 +26,12 @@ public class AccountService {
 		accountDAO.updateAccount(account);
 	}
 	
-	public void deleteAccount(int cusID) throws SQLException,DeleteAccountException {
-		accountDAO.deleteAccount(cusID);
+	public void deleteAccount(int accID) throws SQLException,DeleteAccountException {
+		accountDAO.deleteAccount(accID);
+	}
+	
+	public void viewAccount(int accID) throws SQLException {
+		accountDAO.viewAccount(accID);
 	}
 	
 }

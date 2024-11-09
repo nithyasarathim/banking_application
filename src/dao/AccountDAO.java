@@ -11,5 +11,6 @@ public interface AccountDAO {
 	
 	public void createAccount(Account account) throws SQLException, InvalidAccountTypeException;
 	public void updateAccount(Account account) throws SQLException, UpdateFailureException;
-	public void deleteAccount(int cusID) throws SQLException, DeleteAccountException;
+	public void deleteAccount(int accID) throws SQLException, DeleteAccountException;
+	public void viewAccount(int accID) throws SQLException;
 }

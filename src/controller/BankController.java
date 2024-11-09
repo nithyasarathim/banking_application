@@ -37,6 +37,11 @@ public class BankController {
 			
 			switch (choice)
 			{
+			case 0:
+			{
+				running=false;
+				break;
+			}
 			case 1:
 			{
 				createAccount();
@@ -50,6 +55,11 @@ public class BankController {
 			case 3:
 			{
 				deleteAccount();
+				break;
+			}
+			case 4:
+			{
+				viewAccount();
 				break;
 			}
 			}
@@ -120,6 +130,13 @@ public class BankController {
 		System.out.println("ENTER CUSTOMER ID TO DELETE 			:");
 		int cusID = Integer.parseInt(br.readLine());
 		accountService.deleteAccount(cusID);
+	}
+	
+	private void viewAccount() throws NumberFormatException, IOException, SQLException {
+		System.out.println("\n");
+		System.out.println("ENTER ACCOUNT ID TO VIEW 				:");
+		int accID = Integer.parseInt(br.readLine());
+		accountService.viewAccount(accID);
 	}
 
 	public void displayMenu() {
