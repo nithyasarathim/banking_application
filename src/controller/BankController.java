@@ -95,10 +95,12 @@ public class BankController {
 			System.out.print("Enter Interest Rate: ");
 			double interest = Double.parseDouble(br.readLine());
 			accountService.createAccount(new SavingsAccount(0, cusID, bank, accountType, bal, interest));
+			accountService.createSavingsAccount(new SavingsAccount(0,cusID, bank, accountType, bal, interest));
 		} else if("Current".equalsIgnoreCase(accountType)) {
 			System.out.print("Enter Overdraft Limit: ");
 			double overdraftLimit = Double.parseDouble(br.readLine());
 			accountService.createAccount(new CurrentAccount(0, cusID, accountType, bank, bal, overdraftLimit));
+			accountService.createCurrentAccount(new CurrentAccount(0,cusID, accountType, bank, bal, overdraftLimit));
 		} else {
 			System.out.println("------- < INVALID ACCOUNT TYPE > -------");
 		}
