@@ -31,7 +31,7 @@ public class TransactionHistoryUtil {
 	
 	public static void saveTransaction(String transactionType, int from_id, int to_id, double amount) throws IOException {
 	    String timestamp = dateFormat.format(new Date());
-	    String record = String.format(" %s | %s | From Account ID : %d | To Account ID : %d | Amount : %.2f",timestamp, transactionType, from_id, to_id, amount);
+	    String record = String.format(" %s | %s | From Account ID : %d | To Account ID : %d | Amount : %.2f", timestamp, transactionType, from_id, to_id, amount);
 	    
 	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
 	        writer.write(record);

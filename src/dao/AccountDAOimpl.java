@@ -11,6 +11,8 @@ import exception.DeleteAccountException;
 import exception.InvalidAccountTypeException;
 import exception.UpdateFailureException;
 import model.Account;
+import model.CurrentAccount;
+import model.SavingsAccount;
 import utility.DBconnection;
 
 public class AccountDAOimpl implements AccountDAO {
@@ -96,8 +98,38 @@ public class AccountDAOimpl implements AccountDAO {
 	    }
 	}
 
-	
-	
+	@Override
+	public void createSavingsAccount(SavingsAccount account) throws SQLException, InvalidAccountTypeException {
+		String sql = "INSERT INTO SAVINGSACCOUNT (account_id,interest_rate) VALUES (?,?)";
+		try (Connection con= DBconnection.getConnection(); PreparedStatement ps=con.prepareStatement(sql)) {
+			
+			ps.setInt(1, account.getAccount_id());
+			ps.setDouble(2, account.getInterest_rate());
+			int result =ps.executeUpdate();
+			if(result == 0){
+				throw new InvalidAccountTypeException ("Account Type not recognized");
+			}
+		}	
+	}
 
+	@Override
+	public void createCurrentAccount(CurrentAccount account) throws SQLException, InvalidAccountTypeException {
+		String sql = "INSERT INTO CURRENTACCOUNT (account_id,interest_rate) VALUES (?,?)";
+		try (Connection con= DBconnection.getConnection(); PreparedStatement ps=con.prepareStatement(sql)) {
+			ps.setInt(1, account.getAccount_id());
+			ps.setDouble(2, account.getOverdraft_limit());
+			int result =ps.executeUpdate();
+			if(result == 0) {
+				throw new InvalidAccountTypeException ("Account Type not recognized");
+			}
+		}
+	}
 
+		
 }
+
+	
+	
+	
+
+

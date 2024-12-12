@@ -9,6 +9,8 @@ import exception.DeleteAccountException;
 import exception.InvalidAccountTypeException;
 import exception.UpdateFailureException;
 import model.Account;
+import model.CurrentAccount;
+import model.SavingsAccount;
 
 public class AccountService {
 	
@@ -34,4 +36,11 @@ public class AccountService {
 		accountDAO.viewAccount(accID);
 	}
 	
+	public void createSavingsAccount(SavingsAccount account) throws SQLException, InvalidAccountTypeException {
+		accountDAO.createSavingsAccount(account);
+	}
+	
+	public void createCurrentAccount(CurrentAccount account) throws SQLException, InvalidAccountTypeException {
+		accountDAO.createCurrentAccount(account);
+	}
 }
